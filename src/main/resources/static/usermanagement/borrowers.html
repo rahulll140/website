@@ -1,0 +1,55 @@
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12 col-sm-12">
+			<div class="card">
+				<div class="card-header" data-background-color="purple">
+					<h4 class="title">Borrowers</h4>
+					<p class="category">List of Borrowers are registered in the
+						System</p>
+				</div>
+				<br />
+				<div class="col-md-12 col-sm-12">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<span>Borrowers  <span class="badge">{{users.length}}</span></span>
+						</div>
+
+						<div class="card-content table-responsive">
+							<table ng-table="userTable" class="table">
+								<thead class="text-primary">
+									<tr>
+										<th colspan="50"><input type="text" name="searchData"
+											class="form-control" data-ng-model="search.borrower"
+											placeholder="Type anything to search Borrower"></th>
+									</tr>
+									<tr>
+										<th>Sr No.</th>
+										<th>Borrower Name</th>
+										<th>Email</th>
+										<th>Mobile</th>
+										<th>Active</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr data-ng-repeat="user in $data">
+                        <td>{{$index + 1}}</td>
+                        <td>{{getFullName(user)}}</td>
+                        <td>{{user.email || Constant.NA}}</td>
+                        <td>{{user.mobile || Constant.NA}}</td>
+                        <td><is-active status="{{user.isActive}}"></is-active></td>
+                    	<td><button ui-sref="admin.lams.borrowerProfile({brId:user.id})" class="btn btn-sm btm-primary">View</button></td>
+                    </tr>
+                    <tr ng-if="$data.length===0">
+                    	<td colspan="10">Data not found</td>
+                    </tr>									
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,201 @@
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12 col-sm-12">
+			<div class="card">
+				<div class="card-header" data-background-color="purple">
+					<h4 class="title">Lender</h4>
+					<p class="category">List of Lenders are registered in the
+						System</p>
+						<button class="btn btn-xs btn-success pull-right" style="margin-top: -35px" ng-show="!showEditMode" ng-click="showEditMode = true">Add Lender</button>
+						<button class="btn btn-xs btn-default pull-right" style="margin-top: -35px" ng-show="showEditMode" ng-click="showEditMode = false">Cancel</button>
+				</div>
+				<br />
+				<div class="col-md-12 col-sm-12">
+				
+				<div class="container-fluid" ng-show="showEditMode">
+						<div class="row">
+							<div class="card">
+								<div class="card-content">
+									<form name="forms.lenderForm"
+										data-ng-submit="updateLenderDetails()" novalidate>
+										<h4>Enter Lender Details</h4>
+										<div class="row">
+											<div class="col-md-3">
+												<div class="form-group">
+													<label class="control-label">Email address <span
+														class="text-danger">*</span></label> <input id="userEmail" type="email"
+														name="email" class="form-control"
+														data-ng-model="userData.email" required>
+												</div>
+											</div>
+											<div class="col-md-3">
+												<div class="form-group">
+													<label class="control-label">Mobile <span
+														class="text-danger">*</span></label> <input type="text"
+														name="mobile" class="form-control"
+														data-ng-model="userData.mobile" required>
+												</div>
+											</div>
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label class="control-label">Password <span
+														class="text-danger">*</span></label> <input type="password"
+														name="password" class="form-control"
+														data-ng-model="userData.password" required>
+												</div>
+											</div>
+											<div class="col-md-3">
+												<div class="form-group">
+													<label class="control-label">Confirm Password <span
+														class="text-danger">*</span></label> <input type="password"
+														name="confirmPassword" class="form-control"
+														data-ng-model="userData.confirmPassword" required>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-3">
+												<div class="form-group">
+													<label class="control-label">Salutation <span
+														class="text-danger">*</span></label> <select class="form-control"
+														data-ng-model="userData.salutation"
+														data-ng-options="salu.id as salu.name for salu in salutations">
+														<option value="">Select Salutation</option>
+													</select>
+												</div>
+											</div>
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label class="control-label">First Name <span
+														class="text-danger">*</span></label> <input type="text"
+														name="firstName" class="form-control"
+														data-ng-model="userData.firstName" required>
+												</div>
+											</div>
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label class="control-label">Middle Name</label> <input
+														type="text" name="middleName" class="form-control"
+														data-ng-model="userData.middleName">
+												</div>
+											</div>
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label class="control-label">Last Name <span
+														class="text-danger">*</span></label> <input type="text"
+														name="lastName" class="form-control"
+														data-ng-model="userData.lastName" required>
+												</div>
+											</div>
+										</div>
+
+										<div class="row">
+											<div class="col-md-3">
+												<div class="form-group">
+													<label class="control-label">Banks<span
+														class="text-danger">*</span></label> <select class="form-control"
+														data-ng-model="userData.bank.id"
+														data-ng-options="bank.id as bank.name for bank in banks">
+														<option value="">Select Banks</option>
+													</select>
+												</div>
+											</div>
+
+											<div class="col-md-3">
+												<div class="form-group">
+													<label class="control-label">Application<span
+														class="text-danger">*</span></label> <select class="form-control"
+														data-ng-model="userData.applicationTypeId"
+														data-ng-options="appType.id as appType.name for appType in applicationTypes"
+														required>
+														<option value="">Select Application</option>
+													</select>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-8"></div>
+											<div class="col-md-4">
+												<div class="pull-right">
+													<span class="align-middle">Is Active &nbsp;<input
+														type="checkbox" name="isActive"
+														data-ng-model="userData.isActive"></span>
+													<button type="submit" class="btn btn-primary">Submit</button>
+													<button type="submit" data-ng-if="userData.id"
+														data-ng-click="resetUser()" class="btn btn-default">Reset</button>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<span>Lenders  <span class="badge">{{users.length}}</span></span>
+						</div>
+
+						<div class="card-content table-responsive">
+							<table ng-table="userTable" class="table">
+								<thead class="text-primary">
+									<tr>
+										<th colspan="15"><input type="text" name="searchData"
+											class="form-control" data-ng-model="search.lender"
+											placeholder="Type anything to search lender"></th>
+									</tr>
+									<tr>
+										<th>Sr No.</th>
+										<th>Lender Name</th>
+										<th>Email</th>
+										<th>Mobile</th>
+<!-- 										<th>Name</th> -->
+										<th>Bank/NBFC</th>
+										<th>Product</th>
+										<th>No Of Invitations Sent</th>
+										<th>Active</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr data-ng-repeat="user in $data">
+                        <th>{{$index + 1}}</th>
+                        <td>
+                        {{ getFullName(user) }}
+                        </td>
+                        <td>{{user.email || Constant.NA}}</td>
+                        <td>{{user.mobile || Constant.NA}}</td>
+                        <td>{{user.bank.name || Constant.NA}}</td>
+                        <td>{{user.applications[0].applicationTypeName || Constant.NA}}</td>
+                        <th>{{user.invitationCount || 0}}</th>
+                        <td><is-active status="{{user.isActive}}"></is-active></td>
+                    	<td>
+                    	<button type="button" class="btn btn-primary btn-sm"
+												ng-click="editUserData(user)">Edit</button>
+											<button type="button" class="btn btn-info btn-sm"
+												data-ng-if="user.isActive"
+												ng-click="inviteLender(user,$index)">Invite</button>
+												
+												<button type="button" class="btn btn-default btn-sm"
+												data-ng-if="user.isActive"
+												data-ui-sref="admin.lams.lenderProfile({ldId : user.id})">View</button>
+                    	</td>
+                    </tr>
+                    <tr data-ng-if="$data.length===0">
+                    	<td colspan="15" class="text-center">No Lender Found in the System!</td>
+                    </tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
